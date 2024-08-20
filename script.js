@@ -195,191 +195,257 @@ document.getElementById('botaoExcluir').addEventListener('click', () => { //adic
     })
 });
 
-// Função para obter um único produto por ID
+// função para obter um produto específico pelo id informado
 function obterProdutoPorId() {
+  // pega o valor do campo de texto onde o id do produto é inserido
   const produtoId = document.getElementById('produtoIdUnico').value.trim();
+  
+  // verifica se o id foi informado; se não, exibe um alerta e para a execução da função
   if (!produtoId) {
-      alert('Por favor, informe o ID do produto.');
-      return;
+      alert('por favor, informe o id do produto.');
+      return; // termina a função aqui se o id não foi informado
   }
 
+  // faz uma requisição à api usando o id do produto informado
   fetch(`https://fakestoreapi.com/products/${produtoId}`)
       .then(res => {
+          // verifica se a resposta da api é válida; se não for, lança um erro
           if (!res.ok) {
-              throw new Error('Produto não encontrado.');
+              throw new Error('produto não encontrado.');
           }
+          // converte a resposta da api para json
           return res.json();
       })
       .then(produto => {
+          // seleciona o elemento onde as informações do produto serão exibidas
           const container = document.getElementById('produtoUnico');
-          container.innerHTML = ''; // Limpa o conteúdo anterior
+          
+          // limpa o conteúdo anterior do container
+          container.innerHTML = '';
 
-          // Exibe as informações do produto
+          // exibe as informações do produto no container
           container.innerHTML = `
-              <h2>${produto.title}</h2>
+              <h2>${produto.title}</h2> 
               <p>${produto.description}</p>
-              <p><strong>Preço:</strong> $${produto.price}</p>
-              <img src="${produto.image}" alt="${produto.title}" width="100" />
+              <p><strong>preço:</strong> $${produto.price}</p> 
+              <img src="${produto.image}" alt="${produto.title}" width="100" /> 
           `;
       })
       .catch(error => {
+          // se houver um erro (por exemplo, o produto não for encontrado), exibe um alerta com a mensagem de erro
           alert(error.message);
+          // limpa o container de exibição do produto, caso haja algo nele
           document.getElementById('produtoUnico').innerHTML = '';
       });
 }
 
-// Adiciona o evento ao botão de buscar produto por ID
+
+// adicona um evento de clique no botao de buscar produto por ID
 document.getElementById('botaoBuscarUnico').addEventListener('click', obterProdutoPorId);
 
 
-// Função para limitar o número de produtos e atualizar a interface
+// funcao para limitar o numero de produtos e atualizar a interface
 function limitarProdutos() {
+  // obtem o valor do campo de texto onde o limite de produtos é inserido
   const limite = document.getElementById('limiteProdutos').value;
+  
+  // verifica se o limite foi informado e se é maior que zero; se nao, exibe um alerta e para a execucao da funcao
   if (!limite || limite <= 0) {
-      alert('Por favor, insira um número válido de produtos.');
-      return;
+      alert('por favor, insira um numero valido de produtos.');
+      return; // termina a funcao aqui se o limite nao for valido
   }
 
+  // faz uma requisicao à api usando o limite de produtos informado
   fetch(`https://fakestoreapi.com/products?limit=${limite}`)
       .then(res => {
+          // verifica se a resposta da api é valida; se nao for, lanca um erro
           if (!res.ok) {
-              throw new Error('Erro ao obter produtos.');
+              throw new Error('erro ao obter produtos.');
           }
+          // converte a resposta da api para json
           return res.json();
       })
       .then(produtos => {
+          // seleciona o elemento onde os produtos limitados serao exibidos
           const container = document.getElementById('containerProdutosLimitados');
-          container.innerHTML = ''; // Limpa o conteúdo anterior
+          
+          // limpa o conteudo anterior do container
+          container.innerHTML = '';
 
+          // percorre a lista de produtos e cria elementos para cada um
           produtos.forEach(produto => {
-              const produtoDiv = document.createElement('div');
-              produtoDiv.className = 'produto';
+              const produtoDiv = document.createElement('div'); // cria um div para cada produto
+              produtoDiv.className = 'produto'; // adiciona uma classe para o div do produto
+              
+              // insere as informacoes do produto no div
               produtoDiv.innerHTML = `
-                  <h2>${produto.title}</h2>
-                  <p>${produto.description}</p>
-                  <p><strong>Preço:</strong> $${produto.price}</p>
-                  <img src="${produto.image}" alt="${produto.title}" width="100" />
+                  <h2>${produto.title}</h2> 
+                  <p>${produto.description}</p> 
+                  <p><strong>preço:</strong> $${produto.price}</p>  
+                  <img src="${produto.image}" alt="${produto.title}" width="100" /> 
               `;
+              // adiciona o div do produto ao container
               container.appendChild(produtoDiv);
           });
       })
       .catch(error => {
+          // se houver um erro (por exemplo, falha ao obter produtos), exibe um alerta com a mensagem de erro
           alert(error.message);
+          // limpa o container de exibicao dos produtos, caso haja algo nele
           document.getElementById('containerProdutosLimitados').innerHTML = '';
       });
 }
-// Adiciona o evento ao botão de limitar
+
+// adicona um evento de clique no botao de limitar
 document.getElementById('botaoLimitar').addEventListener('click', limitarProdutos);
 
-// Função para classificar os produtos e atualizar a interface
+// funcao para classificar os produtos e atualizar a interface
 function classificarProdutos() {
+  // obtem o valor do campo de selecao onde a ordem de classificacao é escolhida
   const ordem = document.getElementById('ordemClassificacao').value;
+  
+  // verifica se a ordem foi selecionada; se nao, exibe um alerta e para a execucao da funcao
   if (!ordem) {
-      alert('Por favor, selecione uma ordem de classificação.');
-      return;
+      alert('por favor, selecione uma ordem de classificacao.');
+      return; // termina a funcao aqui se a ordem nao for selecionada
   }
 
+  // faz uma requisicao à api usando a ordem de classificacao informada
   fetch(`https://fakestoreapi.com/products?sort=${ordem}`)
       .then(res => {
+          // verifica se a resposta da api é valida; se nao for, lanca um erro
           if (!res.ok) {
-              throw new Error('Erro ao obter produtos.');
+              throw new Error('erro ao obter produtos.');
           }
+          // converte a resposta da api para json
           return res.json();
       })
       .then(produtos => {
+          // seleciona o elemento onde os produtos classificados serao exibidos
           const container = document.getElementById('containerProdutosClassificados');
-          container.innerHTML = ''; // Limpa o conteúdo anterior
+          
+          // limpa o conteudo anterior do container
+          container.innerHTML = '';
 
+          // percorre a lista de produtos e cria elementos para cada um
           produtos.forEach(produto => {
-              const produtoDiv = document.createElement('div');
-              produtoDiv.className = 'produto';
+              const produtoDiv = document.createElement('div'); // cria um div para cada produto
+              produtoDiv.className = 'produto'; // adiciona uma classe para o div do produto
+              
+              // insere as informacoes do produto no div
               produtoDiv.innerHTML = `
-                  <h2>${produto.title}</h2>
-                  <p>${produto.description}</p>
-                  <p><strong>Preço:</strong> $${produto.price}</p>
-                  <img src="${produto.image}" alt="${produto.title}" width="100" />
+                  <h2>${produto.title}</h2>  
+                  <p>${produto.description}</p>  
+                  <p><strong>preço:</strong> $${produto.price}</p>  
+                  <img src="${produto.image}" alt="${produto.title}" width="100" />  
               `;
+              // adiciona o div do produto ao container
               container.appendChild(produtoDiv);
           });
       })
       .catch(error => {
+          // se houver um erro (por exemplo, falha ao obter produtos), exibe um alerta com a mensagem de erro
           alert(error.message);
+          // limpa o container de exibicao dos produtos, caso haja algo nele
           document.getElementById('containerProdutosClassificados').innerHTML = '';
       });
 }
 
-
-// Adiciona o evento ao botão de classificar
+// adicona um evento de clique no botao de classificar
 document.getElementById('botaoClassificar').addEventListener('click', classificarProdutos);
 
-// Função para obter todas as categorias e atualizar a interface
+// funcao para obter todas as categorias e atualizar a interface
 function obterCategorias() {
+  // faz uma requisicao à api para obter a lista de categorias
   fetch('https://fakestoreapi.com/products/categories')
       .then(res => {
+          // verifica se a resposta da api é valida; se nao for, lanca um erro
           if (!res.ok) {
-              throw new Error('Erro ao obter categorias.');
+              throw new Error('erro ao obter categorias.');
           }
+          // converte a resposta da api para json
           return res.json();
       })
       .then(categorias => {
+          // seleciona o elemento onde as categorias serao exibidas
           const lista = document.getElementById('listaCategorias');
-          lista.innerHTML = ''; // Limpa o conteúdo anterior
+          
+          // limpa o conteudo anterior da lista
+          lista.innerHTML = '';
 
-          // Adiciona cada categoria à lista
+          // adiciona cada categoria à lista
           categorias.forEach(categoria => {
-              const listItem = document.createElement('li');
-              listItem.textContent = categoria;
-              lista.appendChild(listItem);
+              const listItem = document.createElement('li'); // cria um item de lista para cada categoria
+              listItem.textContent = categoria; // define o texto do item como o nome da categoria
+              lista.appendChild(listItem); // adiciona o item de lista à lista
           });
       })
       .catch(error => {
+          // se houver um erro (por exemplo, falha ao obter categorias), exibe um alerta com a mensagem de erro
           alert(error.message);
+          // limpa a lista de exibicao das categorias, caso haja algo nela
           document.getElementById('listaCategorias').innerHTML = '';
       });
 }
 
-// Adiciona o evento ao botão de obter categorias
+
+// adicona um evento de clique no botao de obter categorias
 document.getElementById('botaoCategorias').addEventListener('click', obterCategorias);
 
-// Função para obter produtos de uma categoria específica e atualizar a interface
+// funcao para obter produtos de uma categoria especifica e atualizar a interface
 function obterProdutosPorCategoria() {
+  // obtem o valor do campo de texto onde a categoria é inserida
   const categoria = document.getElementById('categoriaParaBuscar').value.trim();
+  
+  // verifica se a categoria foi informada; se nao, exibe um alerta e para a execucao da funcao
   if (!categoria) {
-      alert('Por favor, informe a categoria.');
-      return;
+      alert('por favor, informe a categoria.');
+      return; // termina a funcao aqui se a categoria nao foi informada
   }
 
+  // faz uma requisicao à api para obter produtos da categoria informada
   fetch(`https://fakestoreapi.com/products/category/${categoria}`)
       .then(res => {
+          // verifica se a resposta da api é valida; se nao for, lanca um erro
           if (!res.ok) {
-              throw new Error('Erro ao obter produtos da categoria.');
+              throw new Error('erro ao obter produtos da categoria.');
           }
+          // converte a resposta da api para json
           return res.json();
       })
       .then(produtos => {
+          // seleciona o elemento onde os produtos da categoria serao exibidos
           const container = document.getElementById('produtosPorCategoria');
-          container.innerHTML = ''; // Limpa o conteúdo anterior
+          
+          // limpa o conteudo anterior do container
+          container.innerHTML = '';
 
-          // Exibe os produtos da categoria
+          // exibe os produtos da categoria
           produtos.forEach(produto => {
-              const produtoDiv = document.createElement('div');
-              produtoDiv.className = 'produto';
+              const produtoDiv = document.createElement('div'); // cria um div para cada produto
+              produtoDiv.className = 'produto'; // adiciona uma classe para o div do produto
+              
+              // insere as informacoes do produto no div
               produtoDiv.innerHTML = `
-                  <h2>${produto.title}</h2>
-                  <p>${produto.description}</p>
-                  <p><strong>Preço:</strong> $${produto.price}</p>
-                  <img src="${produto.image}" alt="${produto.title}" width="100" />
+                  <h2>${produto.title}</h2>  
+                  <p>${produto.description}</p>  
+                  <p><strong>preço:</strong> $${produto.price}</p> 
+                  <img src="${produto.image}" alt="${produto.title}" width="100" />  
               `;
+              // adiciona o div do produto ao container
               container.appendChild(produtoDiv);
           });
       })
       .catch(error => {
+          // se houver um erro (por exemplo, falha ao obter produtos da categoria), exibe um alerta com a mensagem de erro
           alert(error.message);
+          // limpa o container de exibicao dos produtos, caso haja algo nele
           document.getElementById('produtosPorCategoria').innerHTML = '';
       });
 }
 
-// Adiciona o evento ao botão de buscar produtos por categoria
+
+// adicona um evento de clique no botao de buscar produtos por categoria
 document.getElementById('botaoBuscarCategoria').addEventListener('click', obterProdutosPorCategoria);
 
 // funçao pque atualiza a interface
