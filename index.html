@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +16,14 @@
             flex-direction: column;
             align-items: center;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             color: #444;
             text-align: center;
             margin: 20px 0;
         }
+
         section {
             background: #fff;
             border-radius: 8px;
@@ -29,14 +33,18 @@
             max-width: 600px;
             width: 100%;
         }
+
         section h2 {
             margin-top: 0;
         }
+
         .form-group {
             margin-bottom: 16px;
             text-align: center;
         }
-        input, button {
+
+        input,
+        button {
             width: calc(100% - 20px);
             margin: 8px auto;
             padding: 10px;
@@ -45,6 +53,7 @@
             max-width: 300px;
             display: block;
         }
+
         button {
             background-color: #84309b;
             color: #fff;
@@ -58,6 +67,7 @@
             justify-content: center;
             margin: 20px;
         }
+
         .produto {
             background: #fff;
             border: 1px solid #ddd;
@@ -68,20 +78,23 @@
             max-width: 300px;
             text-align: center;
         }
+
         .produto img {
             max-width: 100%;
             height: auto;
             border-radius: 4px;
         }
+
         .logo {
             max-width: 150px;
             margin: 20px 0;
         }
     </style>
 </head>
+
 <body>
     <h1>API Produtos</h1>
-    <img src="https://fakestoreapi.com/icons/intro.svg" alt="Logo Fake Store API" class="logo" width="400px"> 
+    <img src="https://fakestoreapi.com/icons/intro.svg" alt="Logo Fake Store API" class="logo" width="400px">
 
     <!-- pegar -->
     <section>
@@ -90,6 +103,58 @@
             <button id="botaoBuscar">Buscar</button>
         </div>
         <div id="containerProdutos"></div>
+    </section>
+
+    <!-- obter um produto -->
+    <section>
+        <h2>Obter Um Único Produto</h2>
+        <div class="form-group">
+            <input type="number" id="produtoIdUnico" placeholder="ID do Produto" />
+            <button id="botaoBuscarUnico">Buscar Produto</button>
+        </div>
+        <div id="produtoUnico"></div>
+    </section>
+
+    <!-- limitar resultados -->
+    <section>
+        <h2>Limitar Resultados</h2>
+        <div class="form-group">
+            <input type="number" id="limiteProdutos" placeholder="Número de produtos" />
+            <button id="botaoLimitar">Limitar</button>
+        </div>
+        <div id="containerProdutosLimitados"></div>
+    </section>
+
+    <!-- classificar resultados -->
+    <section>
+        <h2>Classificar Resultados</h2>
+        <div class="form-group">
+            <select id="ordemClassificacao">
+                <option value="asc">Ordem Crescente</option>
+                <option value="desc">Ordem Decrescente</option>
+            </select>
+            <button id="botaoClassificar">Classificar</button>
+        </div>
+        <div id="containerProdutosClassificados"></div>
+    </section>
+
+    <!-- todas as categorias -->
+    <section>
+        <h2>Obter Todas as Categorias</h2>
+        <div class="form-group">
+            <button id="botaoCategorias">Obter Categorias</button>
+        </div>
+        <ul id="listaCategorias"></ul>
+    </section>
+
+    <!-- produtos por categoria -->
+    <section>
+        <h2>Obter Produtos por Categoria</h2>
+        <div class="form-group">
+            <input type="text" id="categoriaParaBuscar" placeholder="Categoria" />
+            <button id="botaoBuscarCategoria">Buscar Produtos</button>
+        </div>
+        <div id="produtosPorCategoria"></div>
     </section>
 
     <!-- criar -->
@@ -141,61 +206,6 @@
             <button id="botaoExcluir">Excluir</button>
         </div>
     </section>
-
-    <!-- obter único produto -->
-    <section>
-        <h2>Obter Um Único Produto</h2>
-        <div class="form-group">
-            <input type="number" id="produtoIdUnico" placeholder="ID do Produto" />
-            <button id="botaoBuscarUnico">Buscar Produto</button>
-        </div>
-        <div id="produtoUnico"></div>
-    </section>
-
-    <!-- Limitar resultados -->
-<section>
-    <h2>Limitar Resultados</h2>
-    <div class="form-group">
-        <input type="number" id="limiteProdutos" placeholder="Número de produtos" />
-        <button id="botaoLimitar">Limitar</button>
-    </div>
-    <div id="containerProdutosLimitados"></div>
-</section>
-
-<!-- Classificar resultados -->
-<section>
-    <h2>Classificar Resultados</h2>
-    <div class="form-group">
-        <select id="ordemClassificacao">
-            <option value="asc">Ordem Crescente</option>
-            <option value="desc">Ordem Decrescente</option>
-        </select>
-        <button id="botaoClassificar">Classificar</button>
-    </div>
-    <div id="containerProdutosClassificados"></div>
-</section>
-
-<!-- Obter todas as categorias -->
-<section>
-    <h2>Obter Todas as Categorias</h2>
-    <div class="form-group">
-        <button id="botaoCategorias">Obter Categorias</button>
-    </div>
-    <ul id="listaCategorias"></ul>
-</section>
-
-<!-- Obter produtos por categoria -->
-<section>
-    <h2>Obter Produtos por Categoria</h2>
-    <div class="form-group">
-        <input type="text" id="categoriaParaBuscar" placeholder="Categoria" />
-        <button id="botaoBuscarCategoria">Buscar Produtos</button>
-    </div>
-    <div id="produtosPorCategoria"></div>
-</section>
-
-
-
 
     <script src="script.js"></script>
 </body>
