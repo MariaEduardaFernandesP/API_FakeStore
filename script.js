@@ -1,4 +1,4 @@
-let produtos = []; // array para armazenar os produtos da api e produtos criados
+let produtos = []; // array para armazenar os produtos da api e produtos que foram criados
 let produtosExcluidos = new Set(); // guarda o id dos produtos que forams excluido pra eles nao voltarem de novo quando clicar no get, o set serve pra evitar que o id nao seja repitido
 let produtosCriadosAtualizados = new Map(); // guarda os produtos criados e atualizados, map serve pra acessar um produto mais rapido usando id
 
